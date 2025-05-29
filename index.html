@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultura Japonesa</title>
+    <style>
+        /* Definición de la fuente Taragon */
+        @font-face {
+            font-family: 'Toragon';
+            src: url('font/toragon.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Estilos generales */
+        body {
+            font-family: 'Toragon', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid #e1e1e1;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #c9171e; /* Rojo japonés */
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #2b5f75; /* Azul oscuro */
+            border-left: 4px solid #c9171e;
+            padding-left: 10px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 1px solid #e1e1e1;
+            font-size: 0.9rem;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        button {
+            background-color: #c9171e;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Taragon', Arial, sans-serif;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #a01218;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Explora la Cultura Japonesa</h1>
+        <p>Descubre la belleza de las tradiciones japonesas</p>
+    </header>
+    
+    <main>
+        <section>
+            <h2>Festivales Tradicionales</h2>
+            <p>Japón es conocido por sus vibrantes festivales como el Hanami (observación de cerezos) y el Gion Matsuri en Kioto.</p>
+            <div class="gallery">
+                <img src="https://via.placeholder.com/250x150?text=Festival+Hanami" alt="Festival Hanami">
+                <img src="https://via.placeholder.com/250x150?text=Gion+Matsuri" alt="Gion Matsuri">
+            </div>
+        </section>
+        
+        <section>
+            <h2>Gastronomía</h2>
+            <p>Desde sushi hasta ramen, la cocina japonesa es reconocida mundialmente por su elegancia y sabor.</p>
+            <button id="showMore">Mostrar más</button>
+            <div id="moreInfo" style="display: none;">
+                <p>La gastronomía japonesa fue declarada Patrimonio Cultural Inmaterial por la UNESCO en 2013.</p>
+                <div class="gallery">
+                    <img src="https://via.placeholder.com/250x150?text=Sushi" alt="Sushi">
+                    <img src="https://via.placeholder.com/250x150?text=Ramen" alt="Ramen">
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 Cultura Japonesa - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        // JavaScript simple para mostrar/ocultar información
+        document.getElementById('showMore').addEventListener('click', function() {
+            const moreInfo = document.getElementById('moreInfo');
+            if (moreInfo.style.display === 'none') {
+                moreInfo.style.display = 'block';
+                this.textContent = 'Mostrar menos';
+            } else {
+                moreInfo.style.display = 'none';
+                this.textContent = 'Mostrar más';
+            }
+        });
+
+        // Cambiar el color del encabezado al hacer scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.backgroundColor = 'rgba(201, 23, 30, 0.9)';
+                header.style.color = 'white';
+            } else {
+                header.style.backgroundColor = 'transparent';
+                header.style.color = 'inherit';
+            }
+        });
+    </script>
+</body>
+</html>

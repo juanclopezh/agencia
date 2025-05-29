@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wabi-Sabi - Tours a Japón</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        /* Definición de la fuente Toragon */
+        @font-face {
+            font-family: 'Toragon';
+            src: url('font/toragon.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Estilos generales */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1492571350019-22de08371fd3');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+            color: #333;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        /* Encabezado con fuente Toragon */
+        header {
+            background: rgba(218, 41, 28, 0.9);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+            font-weight: bold;
+            font-family: 'Toragon', Arial, sans-serif;
+        }
+
+        /* Navegación */
+        nav {
+            margin-top: 10px;
+            padding: 10px 0;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9em;
+            padding: 8px 14px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Títulos principales con Toragon */
+        h1, h2, h3, .titulo-pagina {
+            font-family: 'Toragon', Arial, sans-serif;
+        }
+
+        .titulo-pagina {
+            margin: 50px 0 30px;
+            text-align: center;
+            color: #fff;
+            font-size: 2.2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Contenedores y cajas */
+        .contenedor {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .caja {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .caja:hover {
+            transform: translateY(-8px);
+        }
+
+        .caja img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 3px solid #da291c;
+        }
+
+        .descripcion {
+            padding: 25px;
+            color: #333;
+            line-height: 1.7;
+            font-size: 0.95em;
+        }
+
+        /* Secciones de información */
+        .info-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 1200px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-section h2 {
+            color: #da291c;
+            border-bottom: 2px solid #da291c;
+            padding-bottom: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Paquetes turísticos */
+        .tour-package {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 1200px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .package-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Precios y botones */
+        .price {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #da291c;
+            margin: 15px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #da291c;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #b82218;
+        }
+
+        /* Equipo */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .team-member {
+            padding: 15px;
+        }
+
+        .team-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .team-circle:hover {
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        .team-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Pie de página */
+        footer {
+            background: rgba(218, 41, 28, 0.9);
+            color: white;
+            padding: 40px 20px;
+            margin-top: 60px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .redes-sociales {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        .redes-sociales a {
+            color: white;
+            font-size: 1.6em;
+            transition: transform 0.3s ease;
+            padding: 10px;
+        }
+
+        .redes-sociales a:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* Video */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            margin: 25px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Elementos destacados */
+        .destacado {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .requirements {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .accesibilidad {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        /* Agrega esto en tu sección de estilos */
+.high-contrast {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.high-contrast header,
+.high-contrast footer {
+    background: #000 !important;
+    border: 2px solid #fff !important;
+}
+
+.high-contrast .caja,
+.high-contrast .info-card,
+.high-contrast .package-card {
+    background: #000 !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+}
+
+.high-contrast h1,
+.high-contrast h2,
+.high-contrast h3,
+.high-contrast p,
+.high-contrast li,
+.high-contrast a {
+    color: #fff !important;
+}
+
+.high-contrast .btn {
+    background: #fff !important;
+    color: #000 !important;
+    border: 2px solid #fff !important;
+}
+    </style>
+</head>
+
+<body>
+    <!-- Agrega esto justo después de la apertura del <body> -->
+<div id="accessibility-tools" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+    <button id="screen-reader-btn" style="background: #da291c; color: white; border: none; padding: 10px 15px; border-radius: 50%; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+        <i class="fas fa-assistive-listening-systems" style="font-size: 1.5em;"></i>
+    </button>
+    <div id="accessibility-menu" style="display: none; position: absolute; bottom: 60px; right: 0; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); width: 250px;">
+        <h3 style="margin-top: 0; color: #da291c;">Opciones de Accesibilidad</h3>
+        <button id="increase-font" style="display: block; width: 100%; margin: 5px 0; padding: 8px; background: #f0f0f0; border: 1px solid #ddd; cursor: pointer;">Aumentar texto (+)</button>
+        <button id="decrease-font" style="display: block; width: 100%; margin: 5px 0; padding: 8px; background: #f0f0f0; border: 1px solid #ddd; cursor: pointer;">Disminuir texto (-)</button>
+        <button id="high-contrast" style="display: block; width: 100%; margin: 5px 0; padding: 8px; background: #f0f0f0; border: 1px solid #ddd; cursor: pointer;">Alto contraste</button>
+        <button id="read-page" style="display: block; width: 100%; margin: 5px 0; padding: 8px; background: #da291c; color: white; border: none; cursor: pointer;">Leer página</button>
+    </div>
+</div>
+    <header>
+        <h1><span class="destacado">WABI-SABI</span> - TOURS A JAPÓN </h1>
+        
+        <nav>
+            <a href="#paquetes">Paquetes</a>
+            <a href="#datos">Datos</a>
+            <a href="#clima">Clima</a>
+            <a href="#cultura">Cultura</a>
+            <a href="#requisitos">Requisitos</a>
+            <a href="#contactanos">Contacto</a>
+        </nav>
+    </header>
+
+    <h2 class="titulo-pagina">Descubre la Esencia de Japón con Nosotros</h2>
+
+    <div class="tour-package" id="paquetes">
+        <h2>Nuestros Paquetes Turísticos</h2>
+        <div class="package-grid">
+            <div class="package-card">
+                <h3>Tour Esencial Tokio</h3>
+                <p>5 días / 4 noches explorando lo mejor de Tokio</p>
+                <ul>
+                    <li>Visita al mercado Tsukiji</li>
+                    <li>Recorrido por Akihabara</li>
+                    <li>Alojamiento en hotel 4 estrellas</li>
+                    <li>Guía incluido</li>
+                    <li>Red de internet incluida</li>
+                </ul>
+                <div class="price">$1,400 USD</div>
+                <a href="#contactanos" class="btn">Reservar Ahora</a>
+            </div>
+
+            <div class="package-card">
+                <h3>Tour Gold Tokio</h3>
+                <p>10 días / 9 noches Tokio</p>
+                <ul>
+                    <li>Excursión a Shinjuku</li>
+                    <li>Visita al mercado Tsukiji</li>
+                    <li>Recorrido por Akihabara</li>
+                    <li>Alojamiento en hotel 4 estrellas</li>
+                    <li>Alimentación incluida</li>
+                    <li>eSIM incluida</li>
+                    <li>Souvenirs incluidos</li>
+                </ul>
+                <div class="price">$2,500 USD</div>
+                <a href="#contactanos" class="btn">Reservar Ahora</a>
+            </div>
+
+            <div class="package-card">
+                 <h3>Experiencia Tour Premium</h3>
+                <p>12 días / 11 noches Tokio</p>
+                <ul>
+                    <li>Excursión a Shinjuku</li>
+                    <li>Visita al mercado Tsukiji</li>
+                    <li>Recorrido por Akihabara</li>
+                    <li>Visita al studio Ghibli</li>
+                    <li>Visita al centro de Nintendo</li>
+                    <li>Alojamiento en hotel 4 estrellas</li>
+                    <li>Alimentación incluida</li>
+                    <li>eSIM incluida</li>
+                    <li>Souvenirs incluidos</li>
+                    <li>Seguro médico gold incluido</LI>
+                </ul>
+                <div class="price">$5,000 USD</div>
+                <a href="#contactanos" class="btn">Reservar Ahora</a>
+            </div>
+        </div>
+
+        <div class="requirements">
+            <h3>Público Objetivo</h3>
+            <p><strong>Este tour está diseñado para personas aventureras con un gran gusto hacia el anime, gastronomía, la tecnología y la vida nocturna. </strong> </p> 
+            <p><strong>NOTA:</strong> Es de carácter obligatorio diligenciar el checklist adjunto en la sección de <strong>REQUISITOS</strong></p>
+            <p><strong>Para personas menores de 18 años:</strong> Obligatorio ir con mínimo un adulto responsable.</p>
+        </div>
+    </div>
+
+    <div class="info-section" id="datos">
+        <h2>Datos Generales</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Población</h3>
+                <p>Japón tiene aproximadamente 123 millones de habitantes (2024)</p>
+            </div>
+            <div class="info-card">
+                <h3>Área</h3>
+                <p>377,975 km² de extensión territorial</p>
+            </div>
+            <div class="info-card">
+                <h3>Idioma</h3>
+                <p>Japonés (oficial). Solo el 10% habla inglés con fluidez</p>
+            </div>
+            <div class="info-card">
+                <h3>Capital</h3>
+                <p>Tokio, la 3ª ciudad más visitada del mundo en 2024</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-section" id="clima">
+        <h2>Clima y Mejor Época para Visitar</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Primavera (Abril-Mayo)</h3>
+                <p>Floración de cerezos y paisajes suaves</p>
+                <p><strong>Recomendación:</strong> Nuestro tour "Hanami" especial para ver los cerezos en flor</p>
+            </div>
+            <div class="info-card">
+                <h3>Otoño (Septiembre-Noviembre)</h3>
+                <p>Colores vibrantes y vistas panorámicas</p>
+                <p><strong>Recomendación:</strong> Tour fotográfico por los paisajes otoñales</p>
+            </div>
+            <div class="info-card">
+                <h3>Verano (Junio-Agosto)</h3>
+                <p>Caluroso y húmedo, ideal para playas</p>
+                <p><strong>Recomendación:</strong> Paquete playa + ciudad con Okinawa</p>
+            </div>
+            <div class="info-card">
+                <h3>Invierno (Diciembre-Febrero)</h3>
+                <p>Frío con nieve en el norte, menos turistas</p>
+                <p><strong>Recomendación:</strong> Tour de esquí en Hokkaido</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-section" id="cultura">
+        <h2>Cultura Japonesa</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Religión</h3>
+                <p>48.1% sintoísta, 46.5% budista, 1.05% cristiana, 4.3% otras religiones. Muchos japoneses practican
+                    ambas religiones simultáneamente.</p>
+            </div>
+            <div class="info-card">
+                <h3>Tradiciones</h3>
+                <p>Sumo, ceremonia del té, geishas, sushi, artes marciales, festivales matsuri y mucho más que podrás
+                    experimentar en nuestros tours.</p>
+            </div>
+            <div class="info-card">
+                <h3>Orígenes Culturales</h3>
+                <p>Influencias chinas combinadas con un largo período de aislamiento durante el shogunato, seguido de
+                    influencia occidental tras la Segunda Guerra Mundial.</p>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="titulo-pagina" id="lugares">Lugares Turísticos Imperdibles</h2>
+
+    <div class="contenedor">
+        <div class="caja">
+            <img src="https://cdn.cheapoguides.com/wp-content/uploads/sites/2/2018/10/kabukicho_ke_iStock-990790360-770x514.jpg"
+                alt="Shinjuku">
+            <div class="descripcion">
+                <strong>Shinjuku</strong><br>
+                El distrito más vibrante de Tokio, conocido por su vida nocturna, luces de neón y el famoso barrio de
+                Kabukicho. Incluido en todos nuestros paquetes de Tokio.
+            </div>
+        </div>
+
+        <div class="caja">
+            <img src="https://th.bing.com/th/id/R.d03c4380dbc4ff0703103b55d3f730eb?rik=pN0pE52OtsQMqg&pid=ImgRaw&r=0"
+                alt="Museo Toei Animation">
+            <div class="descripcion">
+                <strong>Museo Toei Animation</strong><br>
+                Para los amantes del anime, este museo muestra la historia de la animación japonesa con exhibiciones
+                interactivas. Visita opcional en nuestro tour "Cultura Pop".
+            </div>
+        </div>
+
+        <div class="caja">
+            <img src="https://thumbs.dreamstime.com/b/fish-market-tsukiji-tokyo-japan-selling-fresh-seafood-187314598.jpg"
+                alt="Tsukiji Fish Market">
+            <div class="descripcion">
+                <strong>Mercado de Pescado Tsukiji</strong><br>
+                El mercado de pescado más famoso del mundo, donde podrás probar el sushi más fresco directamente de la
+                fuente. Incluido en nuestro tour gastronómico premium.
+            </div>
+        </div>
+
+        <div class="caja">
+            <img src="https://th.bing.com/th/id/R.6915dc49dd25ac78678ccafd66dc081a?rik=rO9vJQSMpi77aA&pid=ImgRaw&r=0"
+                alt="Akihabara">
+            <div class="descripcion">
+                <strong>Akihabara</strong><br>
+                El paraíso de la tecnología y la cultura otaku, con tiendas de electrónica, manga y cafés temáticos.
+                Visita guiada incluida en varios de nuestros paquetes.
+            </div>
+        </div>
+
+        <div class="caja">
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/LE9lvqyQVjE?si=FfbC1RPziTUCI5LZ"
+                    title="Video de Tsukiji Fish Market" frameborder="0" allowfullscreen>
+                </iframe>
+            </div>
+            <div class="descripcion">
+                <strong>Gastronomía en Tsukiji</strong><br>
+                Descubre la experiencia culinaria única del mercado de pescado más famoso de Tokio, parte de nuestros
+                tours gastronómicos.
+            </div>
+        </div>
+
+        <div class="caja">
+            <div class="descripcion">
+                <h3>Accesibilidad</h3>
+                <div class="accesibilidad">
+                    <p>Japón ha mejorado significativamente su accesibilidad en los últimos años:</p>
+                    <ul>
+                        <li>Estaciones de metro con ascensores</li>
+                        <li>Baños accesibles en la mayoría de atracciones</li>
+                        <li>Rampas en lugares turísticos principales</li>
+                        <li>Servicio de alquiler de sillas de ruedas en aeropuertos</li>
+                    </ul>
+                    <p>Ofrecemos tours adaptados para personas con movilidad reducida. Consúltanos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-section" id="requisitos">
+        <h2>Requisitos para Viajar a Japón</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Visado</h3>
+                <p>Para colombianos se requiere visado con vigencia de 90 días. Te ayudamos con el proceso completo.</p>
+                <p><strong>Documentación requerida:</strong> Pasaporte válido, fotografía, formulario completado,
+                    reservas de hotel y vuelo.</p>
+                <a href="https://www.colombia.emb-japan.go.jp/files/100794320.pdf" class="btn" target="_blank">Checklist
+                    Oficial</a>
+            </div>
+            <div class="info-card">
+                <h3>Seguro Médico</h3>
+                <p>No obligatorio pero altamente recomendado. Ofrecemos seguros de viaje con amplia cobertura.</p>
+                <p>Los costos médicos en Japón son muy elevados. Nuestro seguro cubre hospitalización, repatriación y
+                    más.</p>
+            </div>
+            <div class="info-card">
+                <h3>Permiso de Conducir</h3>
+                <p>Si deseas alquilar un coche, necesitarás Permiso de Conducir Internacional (PDI). Te asesoramos en el
+                    trámite.</p>
+            </div>
+            <div class="info-card">
+                <h3>Requisitos COVID-19</h3>
+                <p>Actualmente no se requieren pruebas ni vacunación, pero podrían realizarte test si presentas síntomas
+                    al ingresar.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-section" id="problemas">
+        <h2>Problemáticas y Soluciones</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Sobrepoblación en Tokio</h3>
+                <p><strong>ODS relacionados:</strong> 11 (Ciudades sostenibles), 9 (Infraestructura), 13 (Acción
+                    climática)</p>
+                <p><strong>Soluciones:</strong> Descentralización, teletrabajo, urbanismo sostenible, viviendas
+                    asequibles</p>
+                <p><strong>Nuestra contribución:</strong> Promovemos tours a regiones menos visitadas para distribuir el
+                    turismo.</p>
+            </div>
+            <div class="info-card">
+                <h3>Baja Natalidad</h3>
+                <p><strong>ODS relacionados:</strong> 3 (Salud), 5 (Igualdad de género), 8 (Trabajo decente)</p>
+                <p><strong>Soluciones:</strong> Subsidios familiares, igualdad de género, conciliación laboral</p>
+            </div>
+            <div class="info-card">
+                <h3>Centralización Poblacional</h3>
+                <p><strong>ODS relacionados:</strong> 10 (Reducción desigualdades), 11 (Ciudades sostenibles), 4
+                    (Educación)</p>
+                <p><strong>Soluciones:</strong> Incentivos regionales, reubicación institucional, turismo rural</p>
+                <p><strong>Nuestra oferta:</strong> Tours a zonas rurales que apoyan economías locales.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección del equipo -->
+    <div class="info-section" id="equipo">
+        <h2>Nuestro Equipo</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-circle">
+                    <img src="/Users/aseso/Downloads/harri.jpeg" alt="Foto de harri">
+                </div>
+                <h3>Harrison Henao Marrugo</h3>
+                <p>Administrador</p>
+            </div>
+            <div class="team-member">
+                <div class="team-circle">
+                    <img src="/Users/aseso/Downloads/dani.jpeg" alt="Foto de dani">
+                </div>
+                <h3>Daniel Agudelo Muñoz</h3>
+                <p>Administrador</p>
+            </div>
+            <div class="team-member">
+                <div class="team-circle">
+                    <img src="/Users/aseso/Downloads/juanes.jpeg" alt="Foto de juanes">
+                </div>
+                <h3>Juan Esteban Vasquéz</h3>
+                <p>Co-administrador</p>
+            </div>
+            <div class="team-member">
+                <div class="team-circle">
+                    <img src="/Users/aseso/Downloads/china.jpeg" alt="Foto de Zuko">
+                </div>
+                <h3>Zuko Yamato</h3>
+                <p>Co-administradora</p>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contactanos">
+        <h2>Contacta con Wabi-Sabi Japan Tours</h2>
+        <p>¡Déjanos ayudarte a planificar el viaje de tus sueños a Japón!</p>
+        <div style="margin: 30px auto; max-width: 600px;">
+            <a href="mailto:info@wabisabi-japan.com" class="btn" style="margin: 10px;"><i class="fas fa-envelope"></i>
+                Email</a>
+            <a href="tel:+573001234567" class="btn" style="margin: 10px;"><i class="fas fa-phone"></i> Llamar</a>
+            <a href="https://wa.me/573001234567" class="btn" style="margin: 10px;"><i class="fab fa-whatsapp"></i>
+                WhatsApp</a>
+        </div>
+
+        <div class="redes-sociales">
+            <a href="https://www.facebook.com/WabiSabiJapanTours" target="_blank" aria-label="Facebook">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/WabiSabiJapan" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://twitter.com/WabiSabiTours" target="_blank">
+                <i class="fab fa-x-twitter"></i>
+            </a>
+            <a href="https://www.youtube.com/user/WabiSabiJapan" target="_blank">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d207446.2481473782!2d139.60078095!3d35.66844145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b857628235d%3A0xcdd8aef709a2b520!2sTokyo%2C%20Jap%C3%B3n!5e0!3m2!1ses!2ses!4v1717023883894!5m2!1ses!2ses"
+                width="100%" height="450" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <p style="margin-top: 30px;">© 2025 Wabi-Sabi Japan - Creada unicamente con fines ácademicos.</p>
+    </footer>
+    <script>
+// Lector de pantalla y herramientas de accesibilidad
+document.addEventListener('DOMContentLoaded', function() {
+    const screenReaderBtn = document.getElementById('screen-reader-btn');
+    const accessibilityMenu = document.getElementById('accessibility-menu');
+    const increaseFont = document.getElementById('increase-font');
+    const decreaseFont = document.getElementById('decrease-font');
+    const highContrast = document.getElementById('high-contrast');
+    const readPage = document.getElementById('read-page');
+    
+    // Alternar menú de accesibilidad
+    screenReaderBtn.addEventListener('click', function() {
+        accessibilityMenu.style.display = accessibilityMenu.style.display === 'block' ? 'none' : 'block';
+    });
+    
+    // Aumentar tamaño de fuente
+    increaseFont.addEventListener('click', function() {
+        changeFontSize(1);
+    });
+    
+    // Disminuir tamaño de fuente
+    decreaseFont.addEventListener('click', function() {
+        changeFontSize(-1);
+    });
+    
+    // Alternar alto contraste
+    highContrast.addEventListener('click', function() {
+        document.body.classList.toggle('high-contrast');
+    });
+    
+    // Leer el contenido de la página
+    readPage.addEventListener('click', function() {
+        if ('speechSynthesis' in window) {
+            const speech = new SpeechSynthesisUtterance();
+            speech.text = document.body.innerText;
+            speech.volume = 1;
+            speech.rate = 1;
+            speech.pitch = 1;
+            speech.lang = 'es-ES';
+            window.speechSynthesis.speak(speech);
+        } else {
+            alert('Tu navegador no soporta la función de lectura en voz alta. Prueba con Chrome o Edge.');
+        }
+    });
+    
+    // Función para cambiar el tamaño de fuente
+    function changeFontSize(direction) {
+        const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+        const newSize = currentSize + (direction * 2);
+        document.body.style.fontSize = newSize + 'px';
+        
+        // Guardar preferencia
+        localStorage.setItem('fontSize', newSize);
+    }
+    
+    // Cargar preferencias guardadas
+    if (localStorage.getItem('fontSize')) {
+        document.body.style.fontSize = localStorage.getItem('fontSize') + 'px';
+    }
+});
+</script>
+</body>
+</html>
